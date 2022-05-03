@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [benparsell.com](https://benparsell.com) project bootstrapped with [`next.js`](https://nextjs.org/). I've decided to open source the primary source code, where this relies on a MongoDB backend to replicate recipes. The plan is to expand beyond just HelloFresh recipes into other sites like BudgetBytes, etc. In order to do so, I'll need to write additional API connectors or web scrapers to help in pulling that information down, and saving into a standardized schema in MongoDB.
 
 ## Getting Started
 
@@ -26,9 +26,3 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
