@@ -1,0 +1,10 @@
+.background {
+    background: #101010;
+    min-height:300px;
+    padding-top:50px;
+}
+
+.header {
+    font-style: none;
+    color:#fff;
+}

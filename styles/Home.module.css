@@ -8,8 +8,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .footer {
@@ -113,4 +111,16 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.quickAccess {
+  margin-bottom:30px;
+}
+
+.quickAccess h2 {
+  margin-bottom:15px;
+}
+
+.quickAccess a {
+  margin-right:15px;
 }
