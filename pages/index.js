@@ -5,9 +5,10 @@ import Card from '../components/card'
 import Header from '../components/header'
 import { fetchRecipe } from '../lib/api'
 
-export default function Home({recipe, recipe2}) {
+export default function Home({recipesBulk, planRecipes}) {
 
   const helloFreshImageURL = `https://img.hellofresh.com/hellofresh_s3`;
+  console.log(planRecipes)
   return (
     <div className={styles.container}>
       <Head>
@@ -34,15 +35,28 @@ export default function Home({recipe, recipe2}) {
           </div>
         </div>
 
-        <div className="flex flex-row">
-          <h2 className="text-3xl">Current Meals</h2>
+        <div className="flex flex-col mb-6">
+          <h2 className="text-3xl mb-3">Current Meals</h2>
+          <div className='flex flex-row'>
+            { planRecipes.map((item) => {
+              return (
+                <Card recipe={item}></Card>
+              )
+            })}
+          </div>
         </div>
 
         <div className="flex flex-col">
-          <h2 className="text-3xl">Recipes</h2>
+          <h2 className="text-3xl mb-3">Recipes</h2>
           <div className='flex flex-row'>
-            <Card recipe={recipe}></Card>
-            <Card recipe={recipe2}></Card>
+            { recipesBulk.data?.map(
+              (item, index) => {
+                if(index < 5) {
+                  return ( <Card recipe={item}></Card> )
+                } else {
+                  return;
+                }
+              })}
           </div>
         </div>
       </main>
@@ -64,26 +78,28 @@ export default function Home({recipe, recipe2}) {
 }
 
 export async function getStaticProps() {
-  const recipe = (await fetchRecipe("59a83c0f043c3c25824fbb13")) ?? []
-  const recipe2 = (await fetchRecipe("5a664231ad1d6c6f007d0d72")) ?? []
+  const recipesBulk = await fetch('http://localhost:3000/api/recipes', {
+        method: 'get',
+      }).then(recipes => recipes.json()) ?? []
+
+  const recipeIds = await fetch('http://localhost:3000/api/plan', {
+    method: 'get',
+  }).then(recipesIds => recipesIds.json()) ?? []
+
+  let planRecipes = [];
+  recipesBulk.data.map((r) => {
+    recipeIds.data.map((id) => {
+      if(r.id == id.recipeId) {
+        planRecipes.push(r)
+      }
+    })
+  })
+
   return {
     props: { 
-      recipe,
-      recipe2
+      recipesBulk,
+      planRecipes
     },
     
-  }
-}
-
-const addRecipe = async event => {
-  event.preventDefault();
-  const res = await fetchRecipe(event.target.freshID.value);
-  if(res.name != '') {
-    event.target.freshID.value = '';
-    const response = await fetch('http://localhost:3000/api/recipes', {
-      method: 'post',
-      body: JSON.stringify(res)
-    })
-
   }
 }
