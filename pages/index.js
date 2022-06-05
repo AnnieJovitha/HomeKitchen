@@ -6,9 +6,8 @@ import Header from '../components/header'
 import { fetchRecipe } from '../lib/api'
 
 export default function Home({recipesBulk, planRecipes}) {
-
+  console.log(process.env.TOKEN)
   const helloFreshImageURL = `https://img.hellofresh.com/hellofresh_s3`;
-  console.log(planRecipes)
   return (
     <div className={styles.container}>
       <Head>
