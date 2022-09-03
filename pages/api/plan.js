@@ -6,7 +6,6 @@ export default async function handler(req, res) {
   switch (req.method) {
     case "POST":
       let bodyObject = JSON.parse(req.body);
-      console.log(bodyObject)
       let r = await db.collection("plan").insertOne(bodyObject);
       res.json(r);
       break;
