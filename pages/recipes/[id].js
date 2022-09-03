@@ -10,7 +10,6 @@ export default function Details({recipe}) {
   const helloFreshImageURL = `https://img.hellofresh.com/hellofresh_s3`;
   recipe = recipe.data;
   const units = recipe.yields[0].ingredients;
-  console.log(recipe.nutrition)
   return (
     <div className={styles.container}>
       <Head>
@@ -79,7 +78,6 @@ export default function Details({recipe}) {
 
 export async function getStaticProps({params}) {
   const url = 'http://localhost:3000/api/recipes/' + params.id;
-  console.log(url)
   const recipe = await fetch(url, {
       method: 'get',
     }).then(recipe => recipe.json()) ?? []

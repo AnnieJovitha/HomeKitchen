@@ -9,7 +9,6 @@ import Link from 'next/link'
 export default function Recipes({recipes}) {
 
   const helloFreshImageURL = `https://img.hellofresh.com/hellofresh_s3`;
-  console.log(recipes)
   return (
     <div className={styles.container}>
       <Head>
@@ -30,7 +29,7 @@ export default function Recipes({recipes}) {
         <div className="flex flex-row">
             {recipes.map((r) => {
               return (
-                <a href={"/recipes/" + r.id}><Card recipe={r}></Card></a>
+                <a href={"/recipes/" + r.id}><Card recipe={r} action="Remove"></Card></a>
               )
             })}
         </div>
@@ -56,7 +55,6 @@ export async function getStaticProps() {
     let recipes = [];
     recipesBulk.data.map((r) => {
       recipeIds.data.map((id) => {
-        console.log(r.id + " vs " + id.recipeId)
         if(r.id == id.recipeId) {
           recipes.push(r)
         }
@@ -71,18 +69,3 @@ export async function getStaticProps() {
     
   }
 }
-
-/* const addRecipe = async event => {
-  event.preventDefault();
-  const res = await fetchRecipe(event.target.freshID.value);
-  if(res.name != '') {
-    console.log(res)
-    event.target.freshID.value = '';
-    const response = await fetch('http://localhost:3000/api/recipe', {
-      method: 'post',
-      body: JSON.stringify(res)
-    })
-
-    console.log(response)
-  }
-} */

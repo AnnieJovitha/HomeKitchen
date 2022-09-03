@@ -10,7 +10,6 @@ import { useState } from 'react'
 export default function Recipes({recipes}) {
    //     set search query to empty string
    const [q, setQ] = useState("");
-   console.log(q);
    //     set search parameters
    //     we only what to search countries by capital and name
    //     this list can be longer if you want
@@ -32,7 +31,6 @@ export default function Recipes({recipes}) {
   }
 
   const helloFreshImageURL = `https://img.hellofresh.com/hellofresh_s3`;
-  console.log(recipes.data)
   return (
     <div className={styles.container}>
       <Head>
@@ -54,7 +52,7 @@ export default function Recipes({recipes}) {
         <div className="flex flex-wrap">
             {search(recipes.data).map((r) => {
                 return (
-                   <a key={r.id} href={"/recipes/" + r.id}><Card recipe={r}></Card></a>
+                   <a key={r.id} href={"/recipes/" + r.id}><Card recipe={r} action="Add"></Card></a>
                 )
             })}
         </div>
@@ -80,18 +78,3 @@ export async function getStaticProps() {
     
   }
 }
-
-/* const addRecipe = async event => {
-  event.preventDefault();
-  const res = await fetchRecipe(event.target.freshID.value);
-  if(res.name != '') {
-    console.log(res)
-    event.target.freshID.value = '';
-    const response = await fetch('http://localhost:3000/api/recipe', {
-      method: 'post',
-      body: JSON.stringify(res)
-    })
-
-    console.log(response)
-  }
-} */

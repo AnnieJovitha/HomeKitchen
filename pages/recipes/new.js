@@ -53,13 +53,10 @@ const addRecipe = async event => {
   event.preventDefault();
   const res = await fetchRecipe(event.target.freshID.value);
   if(res.name != '') {
-    console.log(res)
     event.target.freshID.value = '';
     const response = await fetch('http://localhost:3000/api/recipes', {
       method: 'post',
       body: JSON.stringify(res)
     })
-
-    console.log(response)
   }
 }

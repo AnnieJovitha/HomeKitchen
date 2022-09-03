@@ -6,7 +6,6 @@ import Header from '../components/header/header'
 import { fetchRecipe } from '../lib/api'
 
 export default function Home({recipesBulk, planRecipes}) {
-  console.log(process.env.TOKEN)
   const helloFreshImageURL = `https://img.hellofresh.com/hellofresh_s3`;
   return (
     <div className={styles.container}>
@@ -39,7 +38,7 @@ export default function Home({recipesBulk, planRecipes}) {
           <div className='flex flex-row'>
             { planRecipes.map((item) => {
               return (
-                <a key={item.id} href={"/recipes/" + item.id}><Card recipe={item}></Card></a>
+                <a key={item.id} href={"/recipes/" + item.id}><Card recipe={item} action="Remove"></Card></a>
               )
             })}
           </div>
@@ -51,7 +50,7 @@ export default function Home({recipesBulk, planRecipes}) {
             { recipesBulk.data?.map(
               (item, index) => {
                 if(index < 5) {
-                  return ( <a key={item.id} href={"/recipes/" + item.id}><Card recipe={item}></Card></a> )
+                  return ( <a key={item.id} href={"/recipes/" + item.id}><Card recipe={item} action="Add"></Card></a> )
                 } else {
                   return;
                 }
