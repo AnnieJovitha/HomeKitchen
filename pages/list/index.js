@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Card from '../../components/card'
-import Header from '../../components/header'
+import Card from '../../components/card/card'
+import Header from '../../components/header/header'
 import { fetchRecipe } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import s from './index.module.css'
@@ -56,23 +56,9 @@ export async function getStaticProps() {
   }
 }
 
+// Need to add state to update UI after this runs
 const clearItem = async event => {
     const deletedItem = await fetch('http://localhost:3000/api/list/' + event.target.value, {
         method: 'delete'
     }).then(deletedItem => deletedItem.json()) ?? []
 }
-
-/* const addRecipe = async event => {
-  event.preventDefault();
-  const res = await fetchRecipe(event.target.freshID.value);
-  if(res.name != '') {
-    console.log(res)
-    event.target.freshID.value = '';
-    const response = await fetch('http://localhost:3000/api/recipe', {
-      method: 'post',
-      body: JSON.stringify(res)
-    })
-
-    console.log(response)
-  }
-} */

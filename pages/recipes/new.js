@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Card from '../../components/card'
-import Header from '../../components/header'
+import Card from '../../components/card/card'
+import Header from '../../components/header/header'
 import { fetchRecipe } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 

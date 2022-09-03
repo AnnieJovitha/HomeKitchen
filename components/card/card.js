@@ -12,19 +12,17 @@ export default function Card({recipe}) {
         <div className="px-6 py-4">
             <div className={styles.header + " font-bold text-xl mb-2 text-center"}>{recipe.name}</div>
             <p>{recipe.prepTime.replace("PT", "").replace("M", " Minutes")}</p>
-            {getURLSlug() === 'recipes' &&
-                    <form onSubmit={addToPlan}>
-                        <input type="hidden" name="freshID" value={recipe.id} className="form-input rounded" />
-                        <button className="btn-submit">Add to Plan</button>
-                    </form>
-            }
+            <form onSubmit={addToPlan}>
+                <input type="hidden" name="freshID" value={recipe.id} className="form-input rounded" />
+                <button className="btn-submit">Add to Plan</button>
+            </form>
 
-            {getURLSlug() === 'plan' &&
-                <form onSubmit={removeFromPlan}>
-                    <input type="hidden" name="freshID" value={recipe.id} className="form-input rounded" />
-                    <button className="btn-danger">Remove from Plan</button>
-                </form>
-            }
+            <form onSubmit={removeFromPlan}>
+                <input type="hidden" name="freshID" value={recipe.id} className="form-input rounded" />
+                <button className="btn-danger">Remove from Plan</button>
+            </form>
+                
+            
         </div>
     </div>
   )
@@ -32,7 +30,7 @@ export default function Card({recipe}) {
 
 const addToPlan = async event => {
     event.preventDefault();
-    const res = {recipeId: event.target.freshID.value, obj_id: event.target.obj_id.value};
+    const res = {recipeId: event.target.freshID.value, obj_id: event.target.freshID.value};
     const response = await fetch('http://localhost:3000/api/plan', {
         method: 'post',
         body: JSON.stringify(res)

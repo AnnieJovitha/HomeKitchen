@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Card from '../../components/card'
-import Header from '../../components/header'
+import Card from '../../components/card/card'
+import Header from '../../components/header/header'
 import { fetchRecipe } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import Link from 'next/link'
@@ -19,20 +19,22 @@ export default function Recipes({recipes}) {
       </Head>
       <Header />
 
-      <main className="">
+      <div className="">
         <div className="flex flex-row justify-center">
-          <h1 className="">
-            Hi Ben, here's your meals this week:
-          </h1>
+          {
+            recipes.map.size > 0 
+            ? <h1 className="">Hi Ben, here's your meals this week:</h1> 
+            : <h1 className="">Hi Ben, let's add some recipes to your plan:</h1> 
+          }
         </div>
         <div className="flex flex-row">
             {recipes.map((r) => {
-                return (
-                   <a href={"/recipes/" + r.id}><Card recipe={r}></Card></a>
-                )
+              return (
+                <a href={"/recipes/" + r.id}><Card recipe={r}></Card></a>
+              )
             })}
         </div>
-      </main>
+      </div>
 
       <footer className="">
         

@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Card from '../components/card'
-import Header from '../components/header'
+import Card from '../components/card/card'
+import Header from '../components/header/header'
 import { fetchRecipe } from '../lib/api'
 
 export default function Home({recipesBulk, planRecipes}) {
@@ -39,7 +39,7 @@ export default function Home({recipesBulk, planRecipes}) {
           <div className='flex flex-row'>
             { planRecipes.map((item) => {
               return (
-                <Card recipe={item}></Card>
+                <a key={item.id} href={"/recipes/" + item.id}><Card recipe={item}></Card></a>
               )
             })}
           </div>
@@ -51,7 +51,7 @@ export default function Home({recipesBulk, planRecipes}) {
             { recipesBulk.data?.map(
               (item, index) => {
                 if(index < 5) {
-                  return ( <Card recipe={item}></Card> )
+                  return ( <a key={item.id} href={"/recipes/" + item.id}><Card recipe={item}></Card></a> )
                 } else {
                   return;
                 }
