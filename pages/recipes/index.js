@@ -46,13 +46,13 @@ export default function Recipes({recipes}) {
             Hi Ben, let's get cooking.
           </h1>
           <section className="flex-col md:flex-row flex items-center md:justify-center mt-16 mb-16 md:mb-12">
-            <input onChange={(e) => setQ(e.target.value)} value={q} className={styles.search + " shadow appearance-none rounded w-3/5 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"} type="text" placeholder="Search..."/>
+            <input onChange={(e) => setQ(e.target.value)} value={q} className={styles.search + " shadow appearance-none rounded py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"} type="text" placeholder="Search..."/>
           </section>
         </div>
-        <div className="flex flex-wrap">
+        <div className={styles.list}>
             {search(recipes.data).map((r) => {
                 return (
-                   <a key={r.id} href={"/recipes/" + r.id}><Card recipe={r} action="Add"></Card></a>
+                   <a className={styles.listItem} key={r.id} href={"/recipes/" + r.id}><Card recipe={r} action="Add"></Card></a>
                 )
             })}
         </div>
