@@ -20,7 +20,7 @@ export default function NewRecipe() {
       <main className="">
         <div className="flex flex-row justify-center">
           <h1 className="">
-            Hi Ben, let's get cooking.
+            Hi Ben, let&apos;s get cooking.
           </h1>
         </div>
         <div>
