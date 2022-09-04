@@ -43,7 +43,7 @@ export default function Recipes({recipes}) {
       <main className="">
         <div className="flex flex-row justify-center">
           <h1 className="">
-            Hi Ben, let's get cooking.
+            Hi Ben, let&apos;s get cooking.
           </h1>
           <section className="flex-col md:flex-row flex items-center md:justify-center mt-16 mb-16 md:mb-12">
             <input onChange={(e) => setQ(e.target.value)} value={q} className={styles.search + " shadow appearance-none rounded py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"} type="text" placeholder="Search..."/>

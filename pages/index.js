@@ -11,7 +11,7 @@ export default function Home({recipesBulk, planRecipes}) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Benny Fresh | Let's Get Cooking</title>
+        <title>Benny Fresh | Let&apos;s Get Cooking</title>
         <meta name="description" content="Recipe app built by Ben Parsell" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -20,7 +20,7 @@ export default function Home({recipesBulk, planRecipes}) {
       <main className={styles.main}>
         <div className="flex flex-row justify-center">
           <h1 className={styles.title}>
-            Hi Ben, let's get cooking.
+            Hi Ben, let&apos;s get cooking.
           </h1>
         </div>
         
@@ -66,7 +66,6 @@ export default function Home({recipesBulk, planRecipes}) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>

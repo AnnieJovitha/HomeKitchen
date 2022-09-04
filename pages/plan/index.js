@@ -22,8 +22,8 @@ export default function Recipes({recipes}) {
         <div className="flex flex-row justify-center">
           {
             recipes.map.size > 0 
-            ? <h1 className="">Hi Ben, here's your meals this week:</h1> 
-            : <h1 className="">Hi Ben, let's add some recipes to your plan:</h1> 
+            ? <h1 className="">Hi Ben, here&apos;s your meals this week:</h1> 
+            : <h1 className="">Hi Ben, let&apos;s add some recipes to your plan:</h1> 
           }
         </div>
         <div className="flex flex-row">

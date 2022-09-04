@@ -20,7 +20,7 @@ export default function Recipes({listItems}) {
       <main className="">
         <div className="flex flex-row">
           <h1 className="text-2xl mb-6">
-            Hi Ben, here's your shopping list this week:
+            Hi Ben, here&apos;s your shopping list this week:
           </h1>
         </div>
         <div className="flex flex-col">
