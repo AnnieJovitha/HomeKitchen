@@ -48,7 +48,7 @@ export async function getStaticProps() {
 }
 
 const addRecipe = async event => {
-  event.preventDefault();
+  /* event.preventDefault();
   const res = await fetchRecipe(event.target.freshID.value);
   if(res.name != '') {
     event.target.freshID.value = '';
@@ -56,5 +56,5 @@ const addRecipe = async event => {
       method: 'post',
       body: JSON.stringify(res)
     })
-  }
+  } */
 }
