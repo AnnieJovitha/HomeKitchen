@@ -5,6 +5,8 @@ import Card from "../components/card/card"
 import Header from "../components/header/header"
 import { fetchRecipe } from "../lib/api"
 import Link from "next/link"
+import {getRecipeIds} from '../lib/api';
+import {getRecipes} from '../lib/api';
 
 export default function Home({recipesBulk, planRecipes}) {
   const helloFreshImageURL = "https://img.hellofresh.com/hellofresh_s3";
@@ -27,17 +29,17 @@ export default function Home({recipesBulk, planRecipes}) {
         <div className={styles.quickAccess}>
           <h2 className="text-3xl">Quick Access</h2>
           <div className="flex flex-row">
-            <a className="btn-submit" href="#"><Link href="/list">Shopping List</Link></a>
-            <a className="btn-submit" href="#"><Link href="/recipes">Recipe List</Link></a>
-            <a className="btn-submit" href="#"><Link href="/recipes/new">New Recipe</Link></a>
-            <a className="btn-submit" href="#"><Link href="/plan">Current Meal Plan</Link></a>
+            <Link href="/list"><a className="btn-submit" href="#">Shopping List</a></Link>
+            <Link href="/recipes"><a className="btn-submit" href="#">Recipe List</a></Link>
+            <Link href="/recipes/new"><a className="btn-submit" href="#">New Recipe</a></Link>
+            <Link href="/plan"><a className="btn-submit" href="#">Current Meal Plan</a></Link>
           </div>
         </div>
 
         <div className="flex flex-col mb-6">
           <h2 className="text-3xl mb-3">Current Meals</h2>
           <div className="flex flex-row">
-            { planRecipes.map((item) => {
+            { planRecipes && planRecipes.map((item) => {
               return (
                 <a key={item.id} href={"/recipes/" + item.id}><Card recipe={item} action="Remove"></Card></a>
               )
@@ -48,7 +50,7 @@ export default function Home({recipesBulk, planRecipes}) {
         <div className="flex flex-col">
           <h2 className="text-3xl mb-3">Recipes</h2>
           <div className="flex flex-row">
-            { recipesBulk.data?.map(
+            { recipesBulk && recipesBulk.data?.map(
               (item, index) => {
                 if(index < 5) {
                   return ( <a key={item.id} href={"/recipes/" + item.id}><Card recipe={item} action="Add"></Card></a> )
@@ -75,24 +77,22 @@ export default function Home({recipesBulk, planRecipes}) {
   )
 }
 
+
+
+
 export async function getStaticProps() {
-  const recipesBulk = await fetch("http://localhost:3000/api/recipes", {
-        method: "get",
-      }).then(recipes => recipes.json()) ?? []
-
-  const recipeIds = await fetch("http://localhost:3000/api/plan", {
-    method: "get",
-  }).then(recipesIds => recipesIds.json()) ?? []
-
+  const recipesBulk = await getRecipes();
+  const recipeIds = await getRecipeIds();
   let planRecipes = [];
-  recipesBulk.data.map((r) => {
-    recipeIds.data.map((id) => {
+
+  recipesBulk["data"].map((r) => {
+    recipeIds["data"].map((id) => {
       if(r.id == id.recipeId) {
         planRecipes.push(r)
       }
     })
   })
-
+  
   return {
     props: { 
       recipesBulk,
@@ -100,4 +100,5 @@ export async function getStaticProps() {
     },
     
   }
+  
 }

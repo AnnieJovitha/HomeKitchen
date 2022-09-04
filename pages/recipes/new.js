@@ -39,10 +39,8 @@ export default function NewRecipe() {
 }
 
 export async function getStaticProps() {
-  //const recipe = (await fetchRecipe("59a83c0f043c3c25824fbb13")) ?? []
   return {
     props: { 
-     // recipe,
       
     },
     

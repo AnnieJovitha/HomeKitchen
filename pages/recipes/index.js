@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Card from '../../components/card/card'
 import Header from '../../components/header/header'
-import { fetchRecipe } from '../../lib/api'
+import { fetchRecipe, getRecipes } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -66,9 +66,7 @@ export default function Recipes({recipes}) {
 }
 
 export async function getStaticProps() {
-    const recipes = await fetch('http://localhost:3000/api/recipes', {
-        method: 'get',
-      }).then(recipes => recipes.json()) ?? []
+    const recipes = await getRecipes();
   
   return {
     props: { 
