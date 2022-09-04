@@ -66,7 +66,7 @@ export default function Recipes({recipes}) {
 }
 
 export async function getStaticProps() {
-    const recipes = await getRecipes();
+  const recipes = await getRecipes();
   
   return {
     props: { 

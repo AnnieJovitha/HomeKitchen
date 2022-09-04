@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Card from '../../components/card/card'
 import Header from '../../components/header/header'
-import { fetchRecipe } from '../../lib/api'
+import { getListItems } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import s from './index.module.css'
 import Link from 'next/link'
@@ -42,9 +42,7 @@ export default function Recipes({listItems}) {
 }
 
 export async function getStaticProps() {
-    const listItems = await fetch('http://localhost:3000/api/list', {
-        method: 'get',
-      }).then(listItems => listItems.json()) ?? []
+  const listItems = await getListItems();
   
     
   return {

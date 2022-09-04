@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Card from '../../components/card/card'
 import Header from '../../components/header/header'
-import { fetchRecipe } from '../../lib/api'
+import { getRecipe } from '../../lib/api'
 import styles from '../../styles/Recipe-Details.module.css'
 
 export default function Details({recipe}) {
@@ -77,18 +77,15 @@ export default function Details({recipe}) {
 }
 
 export async function getStaticProps({params}) {
-  const url = 'http://localhost:3000/api/recipes/' + params.id;
-  const recipe = await fetch(url, {
-      method: 'get',
-    }).then(recipe => recipe.json()) ?? []
+  const recipe = await getRecipe(params.id);
 
-return {
-  props: { 
-   recipe,
+  return {
+    props: { 
+      recipe,
+      
+    },
     
-  },
-  
-}
+  }
 }
 
 export async function getStaticPaths() {
