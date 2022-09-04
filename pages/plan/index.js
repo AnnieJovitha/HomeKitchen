@@ -29,7 +29,7 @@ export default function Recipes({recipes}) {
         <div className="flex flex-row">
             {recipes.map((r) => {
               return (
-                <a href={"/recipes/" + r.id}><Card recipe={r} action="Remove"></Card></a>
+                <a key={r.id} href={"/recipes/" + r.id}><Card recipe={r} action="Remove"></Card></a>
               )
             })}
         </div>
