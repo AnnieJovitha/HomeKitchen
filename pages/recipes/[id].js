@@ -90,8 +90,16 @@ export async function getStaticProps({params}) {
 
 export async function getStaticPaths() {
   const allRecipes = await getRecipes();
-  return {
-    paths: allRecipes["data"].map((r) => {return (`/recipes/${r.id}`)}) ?? [],
-    fallback: true,
+  if(allRecipes) {
+    return {
+      paths: allRecipes["data"].map((r) => {return (`/recipes/${r.id}`)}) ?? [],
+      fallback: true,
+    }
+  }
+  else {
+    return {
+      paths: [],
+      fallback: true,
+    }
   }
 }
