@@ -10,7 +10,7 @@ export default function AddButton({recipe}) {
 }
 
 const addToPlan = async event => {
-    event.preventDefault();
+    /* event.preventDefault();
     const res = {recipeId: event.target.freshID.value, obj_id: event.target.freshID.value};
     const response = await fetch('http://localhost:3000/api/plan', {
         method: 'post',
@@ -29,5 +29,5 @@ const addToPlan = async event => {
             method: 'post',
             body: JSON.stringify(recipe.data.ingredients)
         })
-    }
+    } */
 }

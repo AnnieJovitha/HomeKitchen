@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Card from '../../components/card/card'
 import Header from '../../components/header/header'
-import { fetchRecipe } from '../../lib/api'
+import { getRecipe, getRecipes } from '../../lib/api'
 import styles from '../../styles/Recipe-Details.module.css'
 import {server} from '../../config'
 
@@ -78,34 +78,30 @@ export default function Details({recipe}) {
 }
 
 export async function getStaticProps({params}) {
-  const url = `${server}/api/recipes/` + params.id;
-  const recipe = await fetch(url, {
-      method: 'get',
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        'User-Agent': '*',
-      }
-    }).then(recipe => recipe.json()) ?? []
+  const recipe = await getRecipe(params.id);
 
-return {
-  props: { 
-   recipe,
+  return {
+    props: { 
+      recipe,
+      
+    },
     
-  },
-  
-}
+  }
 }
 
 export async function getStaticPaths() {
-  const allRecipes = await fetch(`${server}/api/recipes`, {
-    method: 'get',
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-      'User-Agent': '*',
+  const allRecipes = await getRecipes();
+  try {
+    return {
+      paths: allRecipes["data"].map((r) => {return (`/recipes/${r.id}`)}) ?? [],
+      fallback: true,
     }
-  }).then(allRecipes => allRecipes.json()) ?? []
+  }
+  catch (e) {
+    error = e.toString();
+  }
   return {
-    paths: allRecipes.data?.map((r) => {return (`/recipes/${r.id}`)}) ?? [],
-    fallback: true,
+    paths: [],
+    error,
   }
 }

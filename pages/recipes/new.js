@@ -40,10 +40,8 @@ export default function NewRecipe() {
 }
 
 export async function getStaticProps() {
-  //const recipe = (await fetchRecipe("59a83c0f043c3c25824fbb13")) ?? []
   return {
     props: { 
-     // recipe,
       
     },
     
@@ -51,7 +49,7 @@ export async function getStaticProps() {
 }
 
 const addRecipe = async event => {
-  event.preventDefault();
+  /* event.preventDefault();
   const res = await fetchRecipe(event.target.freshID.value);
   if(res.name != '') {
     event.target.freshID.value = '';
@@ -59,5 +57,5 @@ const addRecipe = async event => {
       method: 'post',
       body: JSON.stringify(res)
     })
-  }
+  } */
 }
