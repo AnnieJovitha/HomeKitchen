@@ -80,15 +80,23 @@ export default function Home({recipesBulk, planRecipes}) {
 export async function getStaticProps() {
   const recipesBulk = await fetch(`${server}/api/recipes`, {
         method: 'get',
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'User-Agent': '*',
+        }
       }).then(recipes => recipes.json()) ?? []
 
   const recipeIds = await fetch(`${server}/api/plan`, {
     method: 'get',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'User-Agent': '*',
+    }
   }).then(recipesIds => recipesIds.json()) ?? []
 
   let planRecipes = [];
-  recipesBulk.data.map((r) => {
-    recipeIds.data.map((id) => {
+  recipesBulk.data?.map((r) => {
+    recipeIds.data?.map((id) => {
       if(r.id == id.recipeId) {
         planRecipes.push(r)
       }

@@ -19,7 +19,7 @@ export default function Recipes({recipes}) {
    const [searchParam] = useState(["name"]);
 
    function search(items) {
-    return items.filter((item) => {
+    return items?.filter((item) => {
         return searchParam.some((newItem) => {
             return (
                 item[newItem]
@@ -51,7 +51,7 @@ export default function Recipes({recipes}) {
           </section>
         </div>
         <div className="flex flex-wrap">
-            {search(recipes.data).map((r) => {
+            {search(recipes.data)?.map((r) => {
                 return (
                    <a key={r.id} href={"/recipes/" + r.id}><Card recipe={r} action="Add"></Card></a>
                 )
@@ -69,6 +69,10 @@ export default function Recipes({recipes}) {
 export async function getStaticProps() {
     const recipes = await fetch(`${server}/api/recipes`, {
         method: 'get',
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'User-Agent': '*',
+        }
       }).then(recipes => recipes.json()) ?? []
   
   return {

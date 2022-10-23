@@ -28,7 +28,7 @@ export default function Recipes({recipes}) {
           }
         </div>
         <div className="flex flex-row">
-            {recipes.map((r) => {
+            {recipes && recipes.map((r) => {
               return (
                 <a href={"/recipes/" + r.id} key={r.id}><Card recipe={r} action="Remove"></Card></a>
               )
@@ -46,16 +46,24 @@ export default function Recipes({recipes}) {
 export async function getStaticProps() {
     const recipeIds = await fetch(`${server}/api/plan`, {
         method: 'get',
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'User-Agent': '*',
+        }
       }).then(recipesIds => recipesIds.json()) ?? []
   
     /* This needs to be more efficient but MVP bby */
     const recipesBulk = await fetch(`${server}/api/recipes`, {
-      method: 'get'
+      method: 'get',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'User-Agent': '*',
+      }
     }).then(recipesBulk => recipesBulk.json()) ?? []
 
     let recipes = [];
-    recipesBulk.data.map((r) => {
-      recipeIds.data.map((id) => {
+    recipesBulk.data?.map((r) => {
+      recipeIds.data?.map((id) => {
         if(r.id == id.recipeId) {
           recipes.push(r)
         }

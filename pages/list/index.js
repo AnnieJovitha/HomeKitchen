@@ -25,7 +25,7 @@ export default function Recipes({listItems}) {
           </h1>
         </div>
         <div className="flex flex-col">
-            {listItems.data.map((i) => {
+            {listItems && listItems.data?.map((i) => {
                 return (
                     <div key={i.name} className="flex flex-row mb-6">
                         <label className={s.ingredientLabel + " mr-3"}><input name="item_id" value={i._id} onChange={clearItem} className={s.check} type="checkbox" id="task_1"/>{i.name} ({i.amount})</label>
@@ -45,13 +45,16 @@ export default function Recipes({listItems}) {
 export async function getStaticProps() {
     const listItems = await fetch(`${server}/api/list`, {
         method: 'get',
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'User-Agent': '*',
+        }
       }).then(listItems => listItems.json()) ?? []
   
     
   return {
     props: { 
      listItems,
-      
     },
     
   }
@@ -60,6 +63,10 @@ export async function getStaticProps() {
 // Need to add state to update UI after this runs
 const clearItem = async event => {
     const deletedItem = await fetch(`${server}/api/list/` + event.target.value, {
-        method: 'delete'
+        method: 'delete',
+        headers: {
+          Accept: 'application/json, text/plain, */*',
+          'User-Agent': '*',
+        }
     }).then(deletedItem => deletedItem.json()) ?? []
 }

@@ -9,8 +9,8 @@ import {server} from '../../config'
 export default function Details({recipe}) {
 
   const helloFreshImageURL = `https://img.hellofresh.com/hellofresh_s3`;
-  recipe = recipe.data;
-  const units = recipe.yields[0].ingredients;
+  recipe = recipe?.data;
+  const units = recipe?.yields[0]?.ingredients;
   return (
     <div className={styles.container}>
       <Head>
@@ -22,15 +22,15 @@ export default function Details({recipe}) {
 
       <main className={styles.main}>
         <div className="flex flex-col text-center mb-6">
-          <img className={styles.headerImage} src={helloFreshImageURL + recipe.imagePath} />
+          <img className={styles.headerImage} src={helloFreshImageURL + recipe?.imagePath} />
           <h1 className="text-2xl">
-            {recipe.name}
+            {recipe?.name}
           </h1>
         </div>
         <h2 className="text-xl">Ingredients</h2>
         <div className="flex flex-col mb-6">
             <div className={"flex flex-wrap flex-row " + styles.ingredientsContainer}>
-                {recipe.ingredients.map((i, index) => {
+                {recipe && recipe.ingredients?.map((i, index) => {
                     return (
                       <div key={i.id} className={styles.ingredient}>
                         <div className={styles.ingredientPhoto}>
@@ -45,7 +45,7 @@ export default function Details({recipe}) {
                 })}
             </div>
             <div className={"flex flex-wrap flex-row " + styles.nutritionContainer}>
-                {recipe.nutrition.map((i) => {
+                {recipe && recipe.nutrition?.map((i) => {
                   return (
                     <div key={i.type} className={styles.nutrient}>
                         <span><strong>{i.name} </strong></span>
@@ -58,7 +58,7 @@ export default function Details({recipe}) {
         <div className="flex flex-col">
           <h2 className="text-xl">Directions</h2>
           <ol type="1">
-            {recipe.steps.map((i, index) => {
+            {recipe && recipe.steps?.map((i, index) => {
                 return (
                   <div key={i.index} className={styles.instruction + " flex flex-wrap flex-row"}>
                     <div className={styles.instructionImage}>
@@ -81,6 +81,10 @@ export async function getStaticProps({params}) {
   const url = `${server}/api/recipes/` + params.id;
   const recipe = await fetch(url, {
       method: 'get',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'User-Agent': '*',
+      }
     }).then(recipe => recipe.json()) ?? []
 
 return {
@@ -95,9 +99,13 @@ return {
 export async function getStaticPaths() {
   const allRecipes = await fetch(`${server}/api/recipes`, {
     method: 'get',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'User-Agent': '*',
+    }
   }).then(allRecipes => allRecipes.json()) ?? []
   return {
-    paths: allRecipes.data.map((r) => {return (`/recipes/${r.id}`)}) ?? [],
+    paths: allRecipes.data?.map((r) => {return (`/recipes/${r.id}`)}) ?? [],
     fallback: true,
   }
 }
