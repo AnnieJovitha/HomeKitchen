@@ -6,6 +6,7 @@ import { fetchRecipe } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import s from './index.module.css'
 import Link from 'next/link'
+import {server} from '../../config'
 
 export default function Recipes({listItems}) {
   return (
@@ -20,7 +21,7 @@ export default function Recipes({listItems}) {
       <main className="">
         <div className="flex flex-row">
           <h1 className="text-2xl mb-6">
-            Hi Ben, here's your shopping list this week:
+            Hi Ben, here&apos;s your shopping list this week:
           </h1>
         </div>
         <div className="flex flex-col">
@@ -42,7 +43,7 @@ export default function Recipes({listItems}) {
 }
 
 export async function getStaticProps() {
-    const listItems = await fetch('http://localhost:3000/api/list', {
+    const listItems = await fetch(`${server}/api/list`, {
         method: 'get',
       }).then(listItems => listItems.json()) ?? []
   
@@ -58,7 +59,7 @@ export async function getStaticProps() {
 
 // Need to add state to update UI after this runs
 const clearItem = async event => {
-    const deletedItem = await fetch('http://localhost:3000/api/list/' + event.target.value, {
+    const deletedItem = await fetch(`${server}/api/list/` + event.target.value, {
         method: 'delete'
     }).then(deletedItem => deletedItem.json()) ?? []
 }

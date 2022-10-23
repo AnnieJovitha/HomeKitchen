@@ -4,6 +4,7 @@ import Card from '../../components/card/card'
 import Header from '../../components/header/header'
 import { fetchRecipe } from '../../lib/api'
 import styles from '../../styles/Recipe-Details.module.css'
+import {server} from '../../config'
 
 export default function Details({recipe}) {
 
@@ -77,7 +78,7 @@ export default function Details({recipe}) {
 }
 
 export async function getStaticProps({params}) {
-  const url = 'http://localhost:3000/api/recipes/' + params.id;
+  const url = `${server}/api/recipes/` + params.id;
   const recipe = await fetch(url, {
       method: 'get',
     }).then(recipe => recipe.json()) ?? []
@@ -92,7 +93,7 @@ return {
 }
 
 export async function getStaticPaths() {
-  const allRecipes = await fetch('http://localhost:3000/api/recipes', {
+  const allRecipes = await fetch(`${server}/api/recipes`, {
     method: 'get',
   }).then(allRecipes => allRecipes.json()) ?? []
   return {

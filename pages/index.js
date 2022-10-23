@@ -4,13 +4,15 @@ import styles from '../styles/Home.module.css'
 import Card from '../components/card/card'
 import Header from '../components/header/header'
 import { fetchRecipe } from '../lib/api'
+import {server} from '../config'
+import Link from 'next/link'
 
 export default function Home({recipesBulk, planRecipes}) {
   const helloFreshImageURL = `https://img.hellofresh.com/hellofresh_s3`;
   return (
     <div className={styles.container}>
       <Head>
-        <title>Benny Fresh | Let's Get Cooking</title>
+        <title>Benny Fresh | Let&apos;s Get Cooking</title>
         <meta name="description" content="Recipe app built by Ben Parsell" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -19,17 +21,17 @@ export default function Home({recipesBulk, planRecipes}) {
       <main className={styles.main}>
         <div className="flex flex-row justify-center">
           <h1 className={styles.title}>
-            Hi Ben, let's get cooking.
+            Hi Ben, let&apos;s get cooking.
           </h1>
         </div>
         
         <div className={styles.quickAccess}>
           <h2 className="text-3xl">Quick Access</h2>
           <div className="flex flex-row">
-            <a className="btn-submit" href="/list">Shopping List</a>
-            <a className="btn-submit" href="/recipes">Recipe List</a>
-            <a className="btn-submit" href="/recipes/new">New Recipe</a>
-            <a className="btn-submit" href="/plan">Current Meal Plan</a>
+            <Link href="/list"><a className="btn-submit" href="">Shopping List</a></Link>
+            <Link href="/recipes"><a className="btn-submit" href="#">Recipe List</a></Link>
+            <Link href="/recipes/new"><a className="btn-submit" href="#">New Recipe</a></Link>
+            <Link href="/plan"><a className="btn-submit" href="#">Current Meal Plan</a></Link>
           </div>
         </div>
 
@@ -76,11 +78,11 @@ export default function Home({recipesBulk, planRecipes}) {
 }
 
 export async function getStaticProps() {
-  const recipesBulk = await fetch('http://localhost:3000/api/recipes', {
+  const recipesBulk = await fetch(`${server}/api/recipes`, {
         method: 'get',
       }).then(recipes => recipes.json()) ?? []
 
-  const recipeIds = await fetch('http://localhost:3000/api/plan', {
+  const recipeIds = await fetch(`${server}/api/plan`, {
     method: 'get',
   }).then(recipesIds => recipesIds.json()) ?? []
 

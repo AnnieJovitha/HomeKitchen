@@ -5,6 +5,7 @@ import Header from '../../components/header/header'
 import { fetchRecipe } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import Link from 'next/link'
+import {server} from '../../config'
 
 export default function Recipes({recipes}) {
 
@@ -22,14 +23,14 @@ export default function Recipes({recipes}) {
         <div className="flex flex-row justify-center">
           {
             recipes.map.size > 0 
-            ? <h1 className="">Hi Ben, here's your meals this week:</h1> 
-            : <h1 className="">Hi Ben, let's add some recipes to your plan:</h1> 
+            ? <h1 className="">Hi Ben, here&apos;s your meals this week:</h1> 
+            : <h1 className="">Hi Ben, let&apos;s add some recipes to your plan:</h1> 
           }
         </div>
         <div className="flex flex-row">
             {recipes.map((r) => {
               return (
-                <a href={"/recipes/" + r.id}><Card recipe={r} action="Remove"></Card></a>
+                <a href={"/recipes/" + r.id} key={r.id}><Card recipe={r} action="Remove"></Card></a>
               )
             })}
         </div>
@@ -43,12 +44,12 @@ export default function Recipes({recipes}) {
 }
 
 export async function getStaticProps() {
-    const recipeIds = await fetch('http://localhost:3000/api/plan', {
+    const recipeIds = await fetch(`${server}/api/plan`, {
         method: 'get',
       }).then(recipesIds => recipesIds.json()) ?? []
   
     /* This needs to be more efficient but MVP bby */
-    const recipesBulk = await fetch('http://localhost:3000/api/recipes', {
+    const recipesBulk = await fetch(`${server}/api/recipes`, {
       method: 'get'
     }).then(recipesBulk => recipesBulk.json()) ?? []
 

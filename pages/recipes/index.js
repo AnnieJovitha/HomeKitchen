@@ -6,6 +6,7 @@ import { fetchRecipe } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import Link from 'next/link'
 import { useState } from 'react'
+import {server} from '../../config'
 
 export default function Recipes({recipes}) {
    //     set search query to empty string
@@ -43,7 +44,7 @@ export default function Recipes({recipes}) {
       <main className="">
         <div className="flex flex-row justify-center">
           <h1 className="">
-            Hi Ben, let's get cooking.
+            Hi Ben, let&apos;s get cooking.
           </h1>
           <section className="flex-col md:flex-row flex items-center md:justify-center mt-16 mb-16 md:mb-12">
             <input onChange={(e) => setQ(e.target.value)} value={q} className={styles.search + " shadow appearance-none rounded w-3/5 py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"} type="text" placeholder="Search..."/>
@@ -66,7 +67,7 @@ export default function Recipes({recipes}) {
 }
 
 export async function getStaticProps() {
-    const recipes = await fetch('http://localhost:3000/api/recipes', {
+    const recipes = await fetch(`${server}/api/recipes`, {
         method: 'get',
       }).then(recipes => recipes.json()) ?? []
   

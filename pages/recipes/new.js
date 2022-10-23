@@ -4,6 +4,7 @@ import Card from '../../components/card/card'
 import Header from '../../components/header/header'
 import { fetchRecipe } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
+import {server} from '../../config'
 
 export default function NewRecipe() {
 
@@ -20,7 +21,7 @@ export default function NewRecipe() {
       <main className="">
         <div className="flex flex-row justify-center">
           <h1 className="">
-            Hi Ben, let's get cooking.
+            Hi Ben, let&apos;s get cooking.
           </h1>
         </div>
         <div>
@@ -54,7 +55,7 @@ const addRecipe = async event => {
   const res = await fetchRecipe(event.target.freshID.value);
   if(res.name != '') {
     event.target.freshID.value = '';
-    const response = await fetch('http://localhost:3000/api/recipes', {
+    const response = await fetch(`${server}/api/recipes`, {
       method: 'post',
       body: JSON.stringify(res)
     })
