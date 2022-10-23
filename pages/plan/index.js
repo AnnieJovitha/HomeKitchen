@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Card from '../../components/card/card'
 import Header from '../../components/header/header'
-import { fetchRecipe } from '../../lib/api'
+import { getRecipes, getRecipeIds } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import Link from 'next/link'
 import {server} from '../../config'
@@ -44,31 +44,17 @@ export default function Recipes({recipes}) {
 }
 
 export async function getStaticProps() {
-    const recipeIds = await fetch(`${server}/api/plan`, {
-        method: 'get',
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'User-Agent': '*',
-        }
-      }).then(recipesIds => recipesIds.json()) ?? []
-  
-    /* This needs to be more efficient but MVP bby */
-    const recipesBulk = await fetch(`${server}/api/recipes`, {
-      method: 'get',
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        'User-Agent': '*',
-      }
-    }).then(recipesBulk => recipesBulk.json()) ?? []
+  const recipesBulk = await getRecipes();
+  const recipeIds = await getRecipeIds();
+  let recipes = [];
 
-    let recipes = [];
-    recipesBulk.data?.map((r) => {
-      recipeIds.data?.map((id) => {
-        if(r.id == id.recipeId) {
-          recipes.push(r)
-        }
-      })
+  recipesBulk["data"].map((r) => {
+    recipeIds["data"].map((id) => {
+      if(r.id == id.recipeId) {
+        recipes.push(r)
+      }
     })
+  })
     
   return {
     props: { 
