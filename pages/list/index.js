@@ -6,7 +6,7 @@ import { getListItems } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import s from './index.module.css'
 import Link from 'next/link'
-import {server} from '../../config'
+import { AWS_ENDPOINT } from '../../config'
 
 export default function Recipes({listItems}) {
   return (
@@ -25,7 +25,7 @@ export default function Recipes({listItems}) {
           </h1>
         </div>
         <div className="flex flex-col">
-            {listItems && listItems.data?.map((i) => {
+            {listItems && listItems?.map((i) => {
                 return (
                     <div key={i.name} className="flex flex-row mb-6">
                         <label className={s.ingredientLabel + " mr-3"}><input name="item_id" value={i._id} onChange={clearItem} className={s.check} type="checkbox" id="task_1"/>{i.name} ({i.amount})</label>
@@ -43,7 +43,7 @@ export default function Recipes({listItems}) {
 }
 
 export async function getStaticProps() {
-  const listItems = await getListItems();
+  let listItems = await getListItems();
   
   return {
     props: { 
@@ -55,11 +55,14 @@ export async function getStaticProps() {
 
 // Need to add state to update UI after this runs
 const clearItem = async event => {
-    const deletedItem = await fetch(`${server}/api/list/` + event.target.value, {
+    console.log(event.target.value)
+    const url = `${AWS_ENDPOINT}/list/${event.target.value}`
+    await fetch(url, {
         method: 'delete',
         headers: {
           Accept: 'application/json, text/plain, */*',
           'User-Agent': '*',
+          'Access-Control-Allow-Origin': 'http://localhost:3000'
         }
     }).then(deletedItem => deletedItem.json()) ?? []
 }

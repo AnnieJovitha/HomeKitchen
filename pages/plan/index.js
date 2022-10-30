@@ -5,7 +5,6 @@ import Header from '../../components/header/header'
 import { getRecipes, getRecipeIds } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import Link from 'next/link'
-import {server} from '../../config'
 
 export default function Recipes({recipes}) {
 
@@ -23,11 +22,11 @@ export default function Recipes({recipes}) {
         <div className="flex flex-row justify-center">
           {
             recipes.map.size > 0 
-            ? <h1 className="">Hi Ben, here&apos;s your meals this week:</h1> 
-            : <h1 className="">Hi Ben, let&apos;s add some recipes to your plan:</h1> 
+            ? <h1 className="text-3xl mb-12">Hi Ben, here&apos;s your meals this week:</h1> 
+            : <h1 className="text-3xl mb-12">Hi Ben, let&apos;s add some recipes to your plan:</h1> 
           }
         </div>
-        <div className="flex flex-row">
+        <div className={styles.list}>
             {recipes && recipes.map((r) => {
               return (
                 <a href={"/recipes/" + r.id} key={r.id}><Card recipe={r} action="Remove"></Card></a>
@@ -44,12 +43,14 @@ export default function Recipes({recipes}) {
 }
 
 export async function getStaticProps() {
-  const recipesBulk = await getRecipes();
-  const recipeIds = await getRecipeIds();
+  let recipesBulk = await getRecipes();
+  recipesBulk = JSON.parse(recipesBulk.body);
+  let recipeIds = await getRecipeIds();
+  recipeIds = JSON.parse(recipeIds.body)
   let recipes = [];
 
-  recipesBulk["data"].map((r) => {
-    recipeIds["data"].map((id) => {
+  recipesBulk.map((r) => {
+    recipeIds.map((id) => {
       if(r.id == id.recipeId) {
         recipes.push(r)
       }

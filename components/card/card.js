@@ -7,14 +7,15 @@ export default function Card({recipe, action}) {
 
 
   return (
-    <div className={styles.background + " max-w-sm rounded overflow-hidden shadow-lg mr-5"}>
+    <div className={styles.background + " max-w-sm rounded overflow-hidden shadow-lg"}>
+        <img classNameName="w-full" src={helloFreshImageURL + recipe.imagePath} alt="Sunset in the mountains"/>
         <div className="px-6 py-4">
-            <img className="w-100 m-auto" src={helloFreshImageURL + recipe.imagePath} alt=""/>
+            <div className="font-bold text-xl mb-2">{recipe.name}</div>
+            <p className="text-white text-base">
+                {recipe.prepTime.replace("PT", "").replace("M", " Minutes")}
+            </p>
         </div>
-        <div className="px-6 py-4">
-            <div className={styles.header + " font-bold text-xl mb-2 text-center"}>{recipe.name}</div>
-            <p>{recipe.prepTime.replace("PT", "").replace("M", " Minutes")}</p>
-            
+        <div className="px-6 pt-4 pb-2">
             {action=="Add" && <AddButton recipe={recipe}></AddButton>}
 
             {action=="Remove" && <RemoveButton recipe={recipe}></RemoveButton>}

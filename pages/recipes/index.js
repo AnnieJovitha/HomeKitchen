@@ -2,11 +2,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Card from '../../components/card/card'
 import Header from '../../components/header/header'
-import { fetchRecipe, getRecipes } from '../../lib/api'
+import { getRecipes } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import Link from 'next/link'
 import { useState } from 'react'
-import {server} from '../../config'
 
 export default function Recipes({recipes}) {
    //     set search query to empty string
@@ -42,16 +41,16 @@ export default function Recipes({recipes}) {
       <Header />
 
       <main className="">
-        <div className="flex flex-row justify-center">
-          <h1 className="">
+        <div className="justify-center text-center">
+          <h1 className="text-3xl">
             Hi Ben, let&apos;s get cooking.
           </h1>
-          <section className="flex-col md:flex-row flex items-center md:justify-center mt-16 mb-16 md:mb-12">
-            <input onChange={(e) => setQ(e.target.value)} value={q} className={styles.search + " shadow appearance-none rounded py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"} type="text" placeholder="Search..."/>
+          <section className="items-center md:justify-center mt-10 mb-10 md:mb-8">
+            <input onChange={(e) => setQ(e.target.value)} value={q} className={styles.search + " w-64 shadow appearance-none rounded py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"} type="text" placeholder="Search..."/>
           </section>
         </div>
         <div className={styles.list}>
-            {search(recipes.data).map((r) => {
+            {search(recipes).map((r) => {
                 return (
                    <a className={styles.listItem} key={r.id} href={"/recipes/" + r.id}><Card recipe={r} action="Add"></Card></a>
                 )
@@ -67,8 +66,9 @@ export default function Recipes({recipes}) {
 }
 
 export async function getStaticProps() {
-  const recipes = await getRecipes();
-  
+  let recipes = await getRecipes();
+  recipes = JSON.parse(recipes.body);
+
   return {
     props: { 
      recipes,

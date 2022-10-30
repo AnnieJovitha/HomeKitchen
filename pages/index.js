@@ -38,7 +38,7 @@ export default function Home({recipesBulk, planRecipes}) {
 
         <div className="flex flex-col mb-6">
           <h2 className="text-3xl mb-3">Current Meals</h2>
-          <div className="flex flex-row">
+          <div className="grid gap-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-1">
             { planRecipes && planRecipes.map((item) => {
               return (
                 <a key={item.id} href={"/recipes/" + item.id}><Card recipe={item} action="Remove"></Card></a>
@@ -49,10 +49,10 @@ export default function Home({recipesBulk, planRecipes}) {
 
         <div className="flex flex-col">
           <h2 className="text-3xl mb-3">Recipes</h2>
-          <div className="flex flex-row">
-            { recipesBulk && recipesBulk.data?.map(
+          <div className="grid gap-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-1">
+            { recipesBulk && recipesBulk?.map(
               (item, index) => {
-                if(index < 5) {
+                if(index < 4) {
                   return ( <a key={item.id} href={"/recipes/" + item.id}><Card recipe={item} action="Add"></Card></a> )
                 } else {
                   return;
@@ -78,11 +78,13 @@ export default function Home({recipesBulk, planRecipes}) {
 }
 
 export async function getStaticProps() {
-  const recipesBulk = await getRecipes();
-  const recipeIds = await getRecipeIds();
+  let recipesBulk = await getRecipes();
+  recipesBulk = JSON.parse(recipesBulk.body);
+  let recipeIds = await getRecipeIds();
+  recipeIds = JSON.parse(recipeIds.body)
   let planRecipes = [];
-  recipesBulk.data?.map((r) => {
-    recipeIds.data?.map((id) => {
+  recipesBulk?.map((r) => {
+    recipeIds?.map((id) => {
       if(r.id == id.recipeId) {
         planRecipes.push(r)
       }

@@ -7,9 +7,8 @@ import styles from '../../styles/Recipe-Details.module.css'
 import {server} from '../../config'
 
 export default function Details({recipe}) {
-
+  console.log(recipe)
   const helloFreshImageURL = `https://img.hellofresh.com/hellofresh_s3`;
-  recipe = recipe?.data;
   const units = recipe?.yields[0]?.ingredients;
   return (
     <div className={styles.container}>
@@ -78,7 +77,8 @@ export default function Details({recipe}) {
 }
 
 export async function getStaticProps({params}) {
-  const recipe = await getRecipe(params.id);
+  let recipe = await getRecipe(params.id);
+  recipe = recipe[0];
 
   return {
     props: { 
@@ -90,10 +90,11 @@ export async function getStaticProps({params}) {
 }
 
 export async function getStaticPaths() {
-  const allRecipes = await getRecipes();
+  let allRecipes = await getRecipes();
+  allRecipes = JSON.parse(allRecipes.body)
   try {
     return {
-      paths: allRecipes["data"].map((r) => {return (`/recipes/${r.id}`)}) ?? [],
+      paths: allRecipes.map((r) => {return (`/recipes/${r.id}`)}) ?? [],
       fallback: true,
     }
   }
