@@ -58,11 +58,6 @@ const clearItem = async event => {
     console.log(event.target.value)
     const url = `${AWS_ENDPOINT}/list/${event.target.value}`
     await fetch(url, {
-        method: 'delete',
-        headers: {
-          Accept: 'application/json, text/plain, */*',
-          'User-Agent': '*',
-          'Access-Control-Allow-Origin': 'http://localhost:3000'
-        }
+        method: 'delete'
     }).then(deletedItem => deletedItem.json()) ?? []
 }
