@@ -5,10 +5,14 @@ import Header from '../../components/header/header'
 import { getRecipes, getRecipeIds } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Recipes({recipes}) {
 
   const helloFreshImageURL = `https://img.hellofresh.com/hellofresh_s3`;
+  const [selectedCards, setSelectedCards] = useState([]);
+  console.log(selectedCards)
+
   return (
     <div className={styles.container}>
       <Head>
@@ -29,7 +33,7 @@ export default function Recipes({recipes}) {
         <div className={styles.list}>
             {recipes && recipes.map((r) => {
               return (
-                <a href={"/recipes/" + r.id} key={r.id}><Card recipe={r} action="Remove"></Card></a>
+                <a href={"/recipes/" + r.id} key={r.id}><Card onSelected={() => setSelectedCards(prevState => ([...prevState, r.id]))} recipe={r} action="Remove"></Card></a>
               )
             })}
         </div>

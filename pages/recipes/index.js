@@ -49,7 +49,7 @@ export default function Recipes({recipes}) {
             <input onChange={(e) => setQ(e.target.value)} value={q} className={styles.search + " w-64 shadow appearance-none rounded py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"} type="text" placeholder="Search..."/>
           </section>
         </div>
-        <div className={styles.list}>
+        <div className="grid grid-cols-1 lg:grid-cols-3">
             {search(recipes).map((r) => {
                 return (
                    <a className={styles.listItem} key={r.id} href={"/recipes/" + r.id}><Card recipe={r} action="Add"></Card></a>

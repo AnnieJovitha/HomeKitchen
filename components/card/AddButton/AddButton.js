@@ -1,3 +1,4 @@
+import { AWS_ENDPOINT } from '../../../config';
 import styles from './AddButton.module.css';
 
 export default function AddButton({recipe}) {
@@ -10,24 +11,25 @@ export default function AddButton({recipe}) {
 }
 
 const addToPlan = async event => {
-    /* event.preventDefault();
+    event.preventDefault();
     const res = {recipeId: event.target.freshID.value, obj_id: event.target.freshID.value};
-    const response = await fetch('http://localhost:3000/api/plan', {
+    await fetch(`${AWS_ENDPOINT}/plan`, {
         method: 'post',
         body: JSON.stringify(res)
     })
 
-    const recipe = await fetch('http://localhost:3000/api/recipes/' + res.recipeId, {
+    await fetch(`${AWS_ENDPOINT}/recipes/${res.recipeId}`, {
         method: 'get',
-    }).then(recipe => recipe.json()) ?? []
+    }).then(response => response.json()).then((recipe) => {
+        recipe[0].ingredients.map((i, index) => {
+            i.amount = recipe[0].yields[0].ingredients[index].amount + " " + recipe[0].yields[0].ingredients[index].unit
+        });
 
-    recipe.data.ingredients.map((i, index) => {
-        i.amount = recipe.data.yields[0].ingredients[index].amount + " " + recipe.data.yields[0].ingredients[index].unit
-    });
-    if(response.status == "200") {
-        const r = await fetch('http://localhost:3000/api/list', {
+        const body = recipe[0].ingredients;
+
+        fetch(`${AWS_ENDPOINT}/list`, {
             method: 'post',
-            body: JSON.stringify(recipe.data.ingredients)
+            body: JSON.stringify(body)
         })
-    } */
+    })
 }

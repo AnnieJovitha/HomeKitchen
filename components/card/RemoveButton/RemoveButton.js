@@ -1,3 +1,4 @@
+import { AWS_ENDPOINT } from '../../../config';
 import styles from './RemoveButton.module.css';
 
 export default function RemoveButton({recipe}) {
@@ -13,7 +14,7 @@ const removeFromPlan = async event => {
     event.preventDefault();
     const res = {id: event.target.freshID.value};
 
-    const deletedItem = await fetch('http://localhost:3000/api/plan/' + res.id, {
+    await fetch(`${AWS_ENDPOINT}/plan/` + res.id, {
         method: 'delete'
     }).then(deletedItem => deletedItem.json()) ?? []
 }

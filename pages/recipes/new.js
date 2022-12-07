@@ -4,7 +4,7 @@ import Card from '../../components/card/card'
 import Header from '../../components/header/header'
 import { fetchRecipe } from '../../lib/api'
 import styles from '../../styles/Home.module.css'
-import {server} from '../../config'
+import {AWS_ENDPOINT, server} from '../../config'
 
 export default function NewRecipe() {
 
@@ -49,13 +49,13 @@ export async function getStaticProps() {
 }
 
 const addRecipe = async event => {
-  /* event.preventDefault();
+  event.preventDefault();
   const res = await fetchRecipe(event.target.freshID.value);
   if(res.name != '') {
     event.target.freshID.value = '';
-    const response = await fetch(`${server}/api/recipes`, {
+    const response = await fetch(`${AWS_ENDPOINT}/recipes`, {
       method: 'post',
       body: JSON.stringify(res)
     })
-  } */
+  } 
 }
