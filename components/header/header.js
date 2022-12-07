@@ -25,9 +25,9 @@ export default function Header(navigation) {
         <Link href="/list"><a className={mobileMenuOpen ?' text-gray-600 hover:underline' : 'text-white hover:underline'}><h3>Shopping List</h3></a></Link>
       </nav>
       <div className='flex flex-col md:flex-row md:space-x-6 md:w-auto'>
-        <Link href="/account"><img src="/icons/user.svg" height="24" width="24" /></Link>
-        <Link href="/list"><img src="/icons/list.svg" height="24" width="24" /></Link>
-        <Link href="/plan"><img src="/icons/calendar.svg" height="24" width="24" /></Link>
+        <Link href="/account"><a className="mt-8"><img src="/icons/user.svg" height="24" width="24" /></a></Link>
+        <Link href="/list"><a className="mt-8"><img src="/icons/list.svg" height="24" width="24" /></a></Link>
+        <Link href="/plan"><a className="mt-8"><img src="/icons/calendar.svg" height="24" width="24" /></a></Link>
       </div>
     </header>
     
