@@ -13,9 +13,9 @@ export default function Home({recipesBulk, planRecipes}) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Benny Fresh | Let&apos;s Get Cooking</title>
+        <title>Home Kitchen | Let&apos;s Get Cooking</title>
         <meta name="description" content="Recipe app built by Ben Parsell" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/icons/favicon.png" />
       </Head>
       <Header />
 
